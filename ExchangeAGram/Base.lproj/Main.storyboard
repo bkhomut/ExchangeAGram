@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UDR-zQ-my1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="UDR-zQ-my1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Feed View Controller-->
@@ -59,6 +59,11 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ACw-ug-0Cw">
+                        <barButtonItem key="leftBarButtonItem" title="Profile" id="uUN-uq-qVv">
+                            <connections>
+                                <action selector="profileTapped:" destination="BYZ-38-t0r" id="pfX-hv-cag"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="camera" id="HMG-gf-Au9">
                             <connections>
                                 <action selector="snapBarButtonItemTapped:" destination="BYZ-38-t0r" id="kK6-6P-tEH"/>
@@ -67,11 +72,50 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="aH1-sB-ntP" id="ywp-dA-9Ts"/>
+                        <segue destination="h7L-gG-D9c" kind="show" identifier="profileSegue" id="ohP-Wz-1sV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1252" y="364"/>
+        </scene>
+        <!--Profile View Controller-->
+        <scene sceneID="fAI-Fh-UpV">
+            <objects>
+                <viewController id="h7L-gG-D9c" customClass="ProfileViewController" customModule="ExchangeAGram" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="v99-WA-MGj"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hal-eE-QqB"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="41p-p9-BFx">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9aM-Ff-RVO">
+                                <rect key="frame" x="10" y="70" width="100" height="100"/>
+                            </imageView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWV-o2-VU0">
+                                <rect key="frame" x="141" y="114" width="134" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgW-wc-vxV" customClass="FBLoginView">
+                                <rect key="frame" x="108" y="406" width="200" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="fbLoginView" destination="AgW-wc-vxV" id="TcI-5h-CIN"/>
+                        <outlet property="nameLabel" destination="qWV-o2-VU0" id="8tL-Hh-bSc"/>
+                        <outlet property="profileImageView" destination="9aM-Ff-RVO" id="8YN-EH-rpq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UYo-iA-ilN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1950" y="364"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rdJ-3M-BS9">

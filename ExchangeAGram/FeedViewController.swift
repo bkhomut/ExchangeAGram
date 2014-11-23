@@ -28,6 +28,14 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         feedArray = context.executeFetchRequest(request, error: nil)!
     }
 
+    override func viewDidAppear(animated: Bool) {
+        let request = NSFetchRequest(entityName: "FeedItem")
+        let appDelegate:AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        let context:NSManagedObjectContext = appDelegate.managedObjectContext!
+        feedArray = context.executeFetchRequest(request, error: nil)!
+        collectionView.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,6 +53,9 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
     */
 
 
+    @IBAction func profileTapped(sender: UIBarButtonItem) {
+        self.performSegueWithIdentifier("profileSegue", sender: nil)
+    }
    
     @IBAction func snapBarButtonItemTapped(sender: UIBarButtonItem) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera){
@@ -85,6 +96,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         let image = info[UIImagePickerControllerOriginalImage] as UIImage
         println(image)
         let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let thumbNailData = UIImageJPEGRepresentation(image, 0.1)
         
         let managedObjectContext = (UIApplication.sharedApplication().delegate as AppDelegate).managedObjectContext
         let entityDescription = NSEntityDescription.entityForName("FeedItem", inManagedObjectContext: managedObjectContext!)
@@ -92,6 +104,7 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         
         feedItem.image = imageData
         feedItem.caption = "test caption"
+        feedItem.thumbnail = thumbNailData
         
         (UIApplication.sharedApplication().delegate as AppDelegate).saveContext()
         
@@ -121,6 +134,20 @@ class FeedViewController: UIViewController, UICollectionViewDataSource, UICollec
         cell.captionLabel.text = thisItem.caption
         
         return cell
+        
+    }
+
+     // UICollectionViewDelegate
+    
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let thisItem = feedArray[indexPath.row] as FeedItem
+    
+    
+    var filterVC = FilterViewController()
+    filterVC.thisFeedItem = thisItem
+
+        self.navigationController?.pushViewController(filterVC, animated: false)
         
     }
 
